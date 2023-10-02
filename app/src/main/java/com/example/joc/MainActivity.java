@@ -17,6 +17,8 @@ public class MainActivity extends AppCompatActivity {
 
     static Random rand = new Random();
     static int intRandom;
+    String oldAnswers = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,33 +29,39 @@ public class MainActivity extends AppCompatActivity {
 
         final Button button = findViewById(R.id.button_1);
         final EditText answer = findViewById(R.id.editTextNumber);
-        //TextView viewRandom = (TextView)findViewById(R.id.textView2);
-        //viewRandom.setText(intRandom);
+        TextView viewAnswers = findViewById(R.id.textView2);
+
+
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                int numberAnswer = Integer.parseInt(answer.getText().toString());
-                CharSequence text = "";
-                Log.i("INFO","El número random és: " + intRandom);
-                if (numberAnswer < intRandom) {
-                    text = "El número que buscas es mayor";
-                    int duration = Toast.LENGTH_SHORT;
-                    Toast toast = Toast.makeText(MainActivity.this, text, duration);
-                    toast.show();
-                } else if (numberAnswer > intRandom) {
-                    text = "El número que buscas es menor";
-                    int duration = Toast.LENGTH_SHORT;
-                    Toast toast = Toast.makeText(MainActivity.this, text, duration);
-                    toast.show();
-                } else if (numberAnswer == intRandom){
-                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                    builder.setMessage(R.string.dialog_message);
-                    //.setTitle(R.string.dialog_title);
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-                }
+                try {
+                    int numberAnswer = Integer.parseInt(answer.getText().toString());
 
+                    oldAnswers += numberAnswer + "\n";
+                    CharSequence text = "";
 
+                    Log.i("INFO","El número random és: " + intRandom);
+                    if (numberAnswer < intRandom) {
+                        text = "El número que buscas es mayor";
+                        int duration = Toast.LENGTH_SHORT;
+                        Toast toast = Toast.makeText(MainActivity.this, text, duration);
+                        toast.show();
+                    } else if (numberAnswer > intRandom) {
+                        text = "El número que buscas es menor";
+                        int duration = Toast.LENGTH_SHORT;
+                        Toast toast = Toast.makeText(MainActivity.this, text, duration);
+                        toast.show();
+                    } else if (numberAnswer == intRandom){
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                        builder.setMessage(R.string.dialog_message);
+                        //.setTitle(R.string.dialog_title);
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                    }
+                }catch (NumberFormatException e){}
+
+                viewAnswers.setText(oldAnswers);
             }
         });
     }
