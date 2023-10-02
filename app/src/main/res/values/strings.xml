@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">JOC</string>
+    <string name="dialog_message">CONGRATULATIONS YOU WIN !!!</string>
 </resources>
