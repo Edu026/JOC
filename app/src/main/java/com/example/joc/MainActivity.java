@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
         final Button button = findViewById(R.id.button_1);
         final EditText answer = findViewById(R.id.editTextNumber);
-        TextView viewAnswers = findViewById(R.id.textView2);
+        TextView viewAnswers = findViewById(R.id.intents);
 
 
 
