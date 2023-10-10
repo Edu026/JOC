@@ -3,6 +3,8 @@ package com.example.joc;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
     static int intRandom;
     String oldAnswers = "";
 
+    Integer intents = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,15 +31,21 @@ public class MainActivity extends AppCompatActivity {
 
         intRandom = rand.nextInt(10);
 
-        final Button button = findViewById(R.id.button_1);
+        final Button button_1 = findViewById(R.id.button_1);
+        final Button button = findViewById(R.id.button);
         final EditText answer = findViewById(R.id.editTextNumber);
         TextView viewAnswers = findViewById(R.id.intents);
 
+        String OnClick;
+        android:OnClick = "sendMessage";
 
 
-        button.setOnClickListener(new View.OnClickListener() {
+
+        button_1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 try {
+                    intents ++;
+
                     int numberAnswer = Integer.parseInt(answer.getText().toString());
 
                     oldAnswers += numberAnswer + "\n";
@@ -63,6 +73,41 @@ public class MainActivity extends AppCompatActivity {
 
                 viewAnswers.setText(oldAnswers);
             }
+
+
         });
     }
+    
+    public void sendMessage(View view){
+        Intent intent = new Intent(MainActivity.this, RecordsActivity.class);
+        intent.putExtra("INTENTS",intent.toString());
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+
+        alert.setTitle("VOLS GUARDAR EL TEU RECORD ?");
+        alert.setMessage("ESCRIU EL TEU NOM");
+
+        // Set an EditText view to get user input
+        final EditText input = new EditText(this);
+        alert.setView(input);
+
+        alert.setPositiveButton("SAVE", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                String value = String.valueOf(input.getText());
+                startActivity(intent);
+
+                // Do something with value!
+            }
+        });
+
+        alert.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                // Canceled.
+            }
+        });
+
+        alert.show();
+    }
+
 }
